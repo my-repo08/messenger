@@ -21,6 +21,9 @@ const InputWrapper = styled.div`
   align-items: center;
   gap: 15px;
   margin-bottom: 15px;
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
 `;
 
 const UsernameInput = styled(Input)`
@@ -89,7 +92,7 @@ const UserModal: React.FC<UserModalProps> = ({ setOpen }) => {
     setIsUpdating(false);
   };
 
-  const isDisabled = !username || isUpdating;
+  const isDisabled = !username.trim() || isUpdating;
 
   return (
     <Modal onClick={() => {}}>

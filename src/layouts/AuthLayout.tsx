@@ -5,6 +5,9 @@ const Container = styled.main`
   width: 100vw;
   height: 100vh;
   display: flex;
+  @media (max-width: 768px) {
+    height: calc(var(--vh, 1vh) * 100);
+  }
 `;
 
 const Poster = styled.div`
@@ -12,6 +15,9 @@ const Poster = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const PosterImg = styled.img`

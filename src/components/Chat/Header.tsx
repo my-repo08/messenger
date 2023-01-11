@@ -19,6 +19,7 @@ const BackButton = styled.button`
   justify-content: center;
   align-items: center;
   padding: 5px;
+  padding-right: 7px;
   color: ${(props) => props.theme.textColor};
   background-color: transparent;
   border: 0.5px solid ${(props) => props.theme.borderColorPrimary};
@@ -32,7 +33,10 @@ const BackButton = styled.button`
 
 const ToUser = styled.span`
   margin-right: 10px;
-  opacity: 0.6px;
+  opacity: 0.6;
+  @media (max-width: 768px) {
+    margin-right: 7px;
+  }
 `;
 
 const ParticipantUser = styled.div`

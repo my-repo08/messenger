@@ -33,6 +33,9 @@ const Wrapper = styled.div`
   border: 0.5px solid ${(props) => props.theme.borderColorPrimary};
   border-radius: 10px;
   transition: all 0.2s;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
 `;
 
 const Title = styled.h1`
@@ -56,6 +59,9 @@ const CustomLink = styled(Link)`
     color: ${(props) => props.theme.textColorHover};
     text-decoration: underline;
   }
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 const Logo = styled.img`
@@ -64,12 +70,20 @@ const Logo = styled.img`
   width: 100px;
   height: 100px;
   object-fit: contain;
+  @media (max-width: 768px) {
+    bottom: 52px;
+    width: 80px;
+    height: 80px;
+  }
 `;
 
 const Form = styled.form`
   position: relative;
   width: 100%;
   margin-top: -20px;
+  @media (max-width: 768px) {
+    margin-top: 10px;
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -102,6 +116,9 @@ const SubmitButton = styled(Button)`
   margin-top: 20px;
   margin-bottom: 15px;
   transition: all 0.2s;
+  @media (max-width: 768px) {
+    margin-top: 10px;
+  }
 `;
 
 const ThemeButtonWrapper = styled.div`

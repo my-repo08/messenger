@@ -10,6 +10,10 @@ import { auth } from "./firebase/firebase";
 import { darkTheme, ligthTheme } from "./app/theme";
 
 const App = () => {
+  let vh = window.innerHeight * 0.01;
+  // Then we set the value in the --vh custom property to the root of the document
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+
   const navigate = useNavigate();
 
   const [currentUser] = useAuthState(auth);

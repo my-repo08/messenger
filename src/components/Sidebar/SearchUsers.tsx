@@ -9,7 +9,9 @@ import {
   where,
 } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { nanoid } from "nanoid";
 import styled from "styled-components";
+import toast from "react-hot-toast";
 import { MdAdd } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { GoSearch } from "react-icons/go";
@@ -25,7 +27,7 @@ const Form = styled.form`
   margin: 15px 13px;
   margin-bottom: 5px;
   @media (max-width: 768px) {
-    margin-top: 20px;
+    margin-top: 18px;
     margin-right: 80px;
     margin-bottom: 0;
   }
@@ -38,6 +40,7 @@ const SearchInput = styled.input`
   gap: 7px;
   padding: 7px 25px;
   padding-left: 27px;
+  font-size: 14px;
   color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.inputColorSecondary};
   border: 0.5px solid ${(props) => props.theme.borderColor};
@@ -65,6 +68,10 @@ const CloseButton = styled.button`
   border: none;
   cursor: pointer;
   transition: all 0.2s;
+  @media (max-width: 768px) {
+    top: 9px;
+    right: 10px;
+  }
 `;
 
 const UsersList = styled.ul`
@@ -154,6 +161,7 @@ const SearchUsers: React.FC = () => {
       setSearchedUsers(users as User[]);
     } catch (error: any) {
       console.log(error.message);
+      toast.error(error.message);
     }
     setIsSearching(false);
   };
@@ -178,11 +186,12 @@ const SearchUsers: React.FC = () => {
       updatedAt: serverTimestamp(),
     };
     try {
-      await setDoc(doc(db, "conversations", crypto.randomUUID()), newConversation);
+      await setDoc(doc(db, "conversations", nanoid()), newConversation);
       setUsername("");
       setSearchedUsers(null);
     } catch (error: any) {
       console.log(error.message);
+      toast.error(error.message);
     }
     setIsConversationCreating(false);
   };

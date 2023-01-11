@@ -5,8 +5,8 @@ const Badge = styled.span`
   position: absolute;
   top: 32px;
   left: 5px;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   background-color: #3478f6;
   border-radius: 50%;
 `;

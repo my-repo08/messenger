@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   border-top: 0.5px solid ${(props) => props.theme.borderColorPrimary};
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  transition: border 0.2s;
 `;
 
 const UserWrapper = styled.div`

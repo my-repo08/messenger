@@ -20,10 +20,9 @@ const ConversationItem = styled(motion.li)<{ active: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
-  gap: 5px;
-  margin-bottom: 10px;
+  margin-top: 10px;
   padding: 15px 10px;
-  padding-left: 20px;
+  padding-left: 18px;
   color: ${(props) => (props.active ? "white" : props.theme.textColor)};
   background-color: ${(props) => (props.active ? "#3478f6" : "")};
   border-radius: 10px;
@@ -51,7 +50,7 @@ const Datetime = styled.div`
   justify-content: center;
   align-items: flex-end;
   margin-left: auto;
-  font-size: 10px;
+  font-size: 12px;
 `;
 
 const LatestMessage = styled.span`
@@ -68,20 +67,27 @@ const LatestMessage = styled.span`
 
 const MoreButton = styled.button<{ active: boolean }>`
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 1px;
+  right: 1px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1px;
+  padding: 3px;
   color: ${(props) => (props.active ? "white" : props.theme.textColor)};
   background-color: transparent;
-  border-radius: 5px;
   border: none;
   cursor: pointer;
-  :hover {
-    outline: 0.5px solid
-      ${(props) => (props.active ? "white" : props.theme.borderColorPrimary)};
+`;
+
+const BottomBorder = styled.span`
+  display: none;
+  @media (max-width: 768px) {
+    position: relative;
+    bottom: 0.5px;
+    display: block;
+    margin-left: 69px;
+    border-bottom: 0.5px solid ${(props) => props.theme.borderColorPrimary};
+    transition: all 0.2s;
   }
 `;
 
@@ -155,43 +161,46 @@ const Conversations: React.FC<ConversationsProps> = ({
         {conversations?.map((conversation) => {
           const formattedUser = formatUsername(conversation, currentUser?.uid!);
           return (
-            <ConversationItem
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0.3, x: -200 }}
-              transition={{ duration: 0.1 }}
-              key={conversation.id}
-              active={conversationInfo?.conversationId === conversation.id}
-              onClick={() =>
-                onViewConversation({
-                  conversationId: conversation.id,
-                  username: formattedUser.displayName!,
-                  creatorId: conversation.creator.uid,
-                  participantId: conversation.participant.uid,
-                })
-              }
-            >
-              {setBadge(conversation, currentUser?.uid!)}
-              {formatAvatar(formattedUser)}
-              <UsernameWrapper>
-                <Username>{formattedUser.displayName}</Username>
-                <LatestMessage>{conversation.latestMessage}</LatestMessage>
-              </UsernameWrapper>
-              <Datetime>{formatTimestamp(conversation.updatedAt)}</Datetime>
-              <MoreButton
+            <>
+              <ConversationItem
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0.3, x: -200 }}
+                transition={{ duration: 0.1 }}
+                key={conversation.id}
                 active={conversationInfo?.conversationId === conversation.id}
-                onClick={(evt) => onSetConversationId(evt, conversation.id)}
+                onClick={() =>
+                  onViewConversation({
+                    conversationId: conversation.id,
+                    username: formattedUser.displayName!,
+                    creatorId: conversation.creator.uid,
+                    participantId: conversation.participant.uid,
+                  })
+                }
               >
-                <BiDotsVerticalRounded size={15} />
-              </MoreButton>
-              <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
-                {conversation.id === conversationId && (
-                  <MoreMenu
-                    conversationId={conversationId}
-                    setConversationInfo={setConversationInfo}
-                  />
-                )}
-              </AnimatePresence>
-            </ConversationItem>
+                {setBadge(conversation, currentUser?.uid!)}
+                {formatAvatar(formattedUser)}
+                <UsernameWrapper>
+                  <Username>{formattedUser.displayName}</Username>
+                  <LatestMessage>{conversation.latestMessage}</LatestMessage>
+                </UsernameWrapper>
+                <Datetime>{formatTimestamp(conversation.updatedAt)}</Datetime>
+                <MoreButton
+                  active={conversationInfo?.conversationId === conversation.id}
+                  onClick={(evt) => onSetConversationId(evt, conversation.id)}
+                >
+                  <BiDotsVerticalRounded size={17} />
+                </MoreButton>
+                <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
+                  {conversation.id === conversationId && (
+                    <MoreMenu
+                      conversationId={conversationId}
+                      setConversationInfo={setConversationInfo}
+                    />
+                  )}
+                </AnimatePresence>
+              </ConversationItem>
+              <BottomBorder />
+            </>
           );
         })}
       </AnimatePresence>

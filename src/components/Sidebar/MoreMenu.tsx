@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 import { AiFillDelete } from "react-icons/ai";
 import { doc, writeBatch } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
@@ -8,13 +9,17 @@ import { ConversationInfo } from "../../types";
 
 const MoreMenuEl = styled(motion.div)`
   position: absolute;
-  top: 3px;
+  top: 2px;
   right: 25px;
   font-size: 14px;
   color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.menuBgColor};
   border-radius: 5px;
   border: 1px solid ${(props) => props.theme.borderColor};
+  transition: all 0.2s;
+  @media (max-width: 768px) {
+    top: 3px;
+  }
 `;
 
 const DeleteItem = styled.button`
@@ -22,7 +27,8 @@ const DeleteItem = styled.button`
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  padding: 2px 8px;
+  padding: 1px 8px;
+  color: ${(props) => props.theme.textColor};
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -73,6 +79,7 @@ const MoreMenu: React.FC<MoreMenuProps> = ({ conversationId, setConversationInfo
       });
     } catch (error: any) {
       console.log(error.message);
+      toast.error(error.message);
     }
     setIsDeletingLoading(false);
   };

@@ -8,6 +8,9 @@ import { ConversationInfo } from "../types";
 const MainEl = styled.main`
   height: 100vh;
   display: flex;
+  @media (max-width: 768px) {
+    height: calc(var(--vh, 1vh) * 100);
+  }
 `;
 
 const ThemeButtonWrapper = styled.div`

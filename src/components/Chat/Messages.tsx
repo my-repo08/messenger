@@ -11,7 +11,9 @@ import {
 } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import dayjs from "dayjs";
+import { nanoid } from "nanoid";
 import styled from "styled-components";
+import { toast } from "react-hot-toast";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { auth, db } from "../../firebase/firebase";
 import { ConversationInfo, Message } from "../../types";
@@ -81,6 +83,7 @@ const MessageInput = styled.input`
   width: 100%;
   padding: 8px;
   background: transparent;
+  font-size: 14px;
   color: ${(props) => props.theme.textColor};
   border: 0.5px solid ${(props) => props.theme.borderColorPrimary};
   border-radius: 15px;
@@ -89,12 +92,15 @@ const MessageInput = styled.input`
   :focus {
     border-color: ${(props) => props.theme.inputBorderColor};
   }
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const SendButton = styled.button`
   display: flex;
   position: absolute;
-  top: 14px;
+  top: 15px;
   right: 20px;
   color: #3d84f7;
   background: white;
@@ -136,6 +142,7 @@ const Messages: React.FC<MessagesProps> = ({ conversationInfo }) => {
       return () => unsubscribe();
     } catch (error: any) {
       console.log(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -153,9 +160,7 @@ const Messages: React.FC<MessagesProps> = ({ conversationInfo }) => {
       batch.set(
         doc(
           db,
-          `messages/${
-            conversationInfo.conversationId
-          }/conversationMessages/${crypto.randomUUID()}`
+          `messages/${conversationInfo.conversationId}/conversationMessages/${nanoid()}`
         ),
         {
           sender: {
@@ -193,6 +198,7 @@ const Messages: React.FC<MessagesProps> = ({ conversationInfo }) => {
       await batch.commit();
     } catch (error: any) {
       console.log(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -222,6 +228,7 @@ const Messages: React.FC<MessagesProps> = ({ conversationInfo }) => {
       );
     } catch (error: any) {
       console.log(error.message);
+      toast.error(error.message);
     }
   };
 

@@ -15,6 +15,9 @@ const Text = styled.p`
   margin-bottom: 30px;
   font-size: 16px;
   text-align: center;
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const Form = styled.form`
@@ -25,6 +28,9 @@ const AuthInput = styled(Input)`
   height: 50px;
   margin-bottom: 20px;
   font-size: 16px;
+  @media (max-width: 768px) {
+    margin-bottom: 10px;
+  }
 `;
 
 const SubmitButton = styled(Button)`
