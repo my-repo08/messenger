@@ -7,7 +7,8 @@ const Wrapper = styled.div`
   align-items: center;
   border: 0.5px solid ${(props) => props.theme.borderColorPrimary};
   border-radius: 10px;
-  transition: all 0.2s;
+  transition: border;
+  transition-duration: 0.2s;
   cursor: pointer;
 `;
 
@@ -16,6 +17,8 @@ const Button = styled.button`
   color: ${(props) => props.theme.textColor};
   background: transparent;
   border: none;
+  transition: color;
+  transition-duration: 0.2s;
   cursor: pointer;
 `;
 

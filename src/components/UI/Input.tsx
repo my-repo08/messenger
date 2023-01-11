@@ -7,11 +7,12 @@ const Input = styled.input`
   margin-bottom: 15px;
   padding: 0 10px;
   font-size: 16px;
+  color: ${(props) => props.theme.textColor};
   border: none;
   background-color: ${(props) => props.theme.inputColorPrimary};
-  color: ${(props) => props.theme.textColor};
   border-radius: 12px;
-  transition: all 0.2s;
+  transition: color, background-color, box-shadow;
+  transition-duration: 0.2s;
   :focus {
     outline: none;
     box-shadow: 0 0 0 0.5px ${(props) => props.theme.borderColorPrimary};

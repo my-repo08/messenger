@@ -42,6 +42,8 @@ const MessageItem = styled.li<{ sentByMe: boolean }>`
   justify-content: ${(props) => (props.sentByMe ? "flex-end" : "flex-start")};
   padding: 10px;
   color: ${(props) => props.theme.textColor};
+  transition: color;
+  transition-duration: 0.2s;
 `;
 
 const MessageWrapper = styled.div`
@@ -59,7 +61,8 @@ const MessageText = styled.p<{ sentByMe: boolean }>`
   border-radius: 10px;
   border-bottom-left-radius: ${(props) => (props.sentByMe ? "10px" : 0)};
   border-bottom-right-radius: ${(props) => (props.sentByMe ? 0 : "10px")};
-  transition: all 0.2s;
+  transition: background-color;
+  transition-duration: 0.2s;
 `;
 
 const Datestamp = styled.span<{ sentByMe: boolean }>`
@@ -68,7 +71,8 @@ const Datestamp = styled.span<{ sentByMe: boolean }>`
   margin-right: ${(props) => (props.sentByMe ? "5px" : 0)};
   margin-bottom: 5px;
   font-size: 12px;
-  transition: all 0.2s;
+  transition: color;
+  transition-duration: 0.2s;
 `;
 
 const Form = styled.form`
@@ -87,7 +91,8 @@ const MessageInput = styled.input`
   color: ${(props) => props.theme.textColor};
   border: 0.5px solid ${(props) => props.theme.borderColorPrimary};
   border-radius: 15px;
-  transition: all 0.2s;
+  transition: color, border;
+  transition-duration: 0.2s;
   outline: none;
   :focus {
     border-color: ${(props) => props.theme.inputBorderColor};

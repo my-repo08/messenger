@@ -16,7 +16,8 @@ const Container = styled.section<{ open: boolean }>`
   color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.bgColorSecondary};
   border-right: 0.5px solid ${(props) => props.theme.borderColorSecondary};
-  transition: all 0.2s;
+  transition: color, background-color, border;
+  transition-duration: 0.2s;
   @media (max-width: 768px) {
     width: ${(props) => (props.open ? "100%" : "")};
     display: ${(props) => (props.open ? "flex" : "none")};

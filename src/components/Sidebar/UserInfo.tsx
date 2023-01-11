@@ -15,7 +15,8 @@ const Wrapper = styled.div`
   border-top: 0.5px solid ${(props) => props.theme.borderColorPrimary};
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  transition: border 0.2s;
+  transition: border;
+  transition-duration: 0.2s;
 `;
 
 const UserWrapper = styled.div`
@@ -38,15 +39,14 @@ const LogoutButton = styled.button`
   border: none;
   cursor: pointer;
   color: ${(props) => props.theme.textColor};
-  transition: all 0.2s;
+  transition: color;
+  transition-duration: 0.2s;
   :hover {
     color: ${(props) => props.theme.textColorHover};
   }
 `;
 
-interface UserInfoProps {}
-
-const UserInfo: React.FC<UserInfoProps> = () => {
+const UserInfo: React.FC = () => {
   const navigate = useNavigate();
   const [currentUser] = useAuthState(auth);
 

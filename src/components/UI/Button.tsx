@@ -11,7 +11,8 @@ const Button = styled.button`
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: color, background-color;
+  transition-duration: 0.2s;
   :not(:disabled) {
     :hover {
       opacity: 0.9;

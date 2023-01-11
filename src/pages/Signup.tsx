@@ -32,7 +32,8 @@ const Wrapper = styled.div`
   padding: 15px;
   border: 0.5px solid ${(props) => props.theme.borderColorPrimary};
   border-radius: 10px;
-  transition: all 0.2s;
+  transition: border;
+  transition-duration: 0.2s;
   @media (max-width: 768px) {
     width: 80%;
   }
@@ -44,7 +45,8 @@ const Title = styled.h1`
   left: 15px;
   font-size: 30px;
   color: ${(props) => props.theme.textColor};
-  transition: all 0.2s;
+  transition: color;
+  transition-duration: 0.2s;
 `;
 
 const CustomLink = styled(Link)`
@@ -54,7 +56,8 @@ const CustomLink = styled(Link)`
   font-size: 14px;
   color: ${(props) => props.theme.textColor};
   text-decoration: none;
-  transition: all 0.2s;
+  transition: color;
+  transition-duration: 0.2s;
   :hover {
     color: ${(props) => props.theme.textColorHover};
     text-decoration: underline;
@@ -115,7 +118,6 @@ const SubmitButton = styled(Button)`
   height: 60px;
   margin-top: 20px;
   margin-bottom: 15px;
-  transition: all 0.2s;
   @media (max-width: 768px) {
     margin-top: 10px;
   }

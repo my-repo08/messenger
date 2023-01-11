@@ -16,7 +16,8 @@ const MoreMenuEl = styled(motion.div)`
   background-color: ${(props) => props.theme.menuBgColor};
   border-radius: 5px;
   border: 1px solid ${(props) => props.theme.borderColor};
-  transition: all 0.2s;
+  transition: color, background-color, border;
+  transition-duration: 0.2s;
   @media (max-width: 768px) {
     top: 3px;
   }
@@ -31,6 +32,8 @@ const DeleteItem = styled.button`
   color: ${(props) => props.theme.textColor};
   background-color: transparent;
   border: none;
+  transition: color, background-color;
+  transition-duration: 0.2s;
   cursor: pointer;
   :not(:disabled) {
     :hover {

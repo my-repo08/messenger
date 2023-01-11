@@ -14,6 +14,8 @@ import userIcon from "../../assets/add-user.png";
 const Title = styled.h4`
   margin-bottom: 20px;
   color: ${(props) => props.theme.textColor};
+  transition: color;
+  transition-duration: 0.2s;
 `;
 
 const InputWrapper = styled.div`

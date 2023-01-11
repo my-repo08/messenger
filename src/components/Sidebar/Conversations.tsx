@@ -10,7 +10,7 @@ import { auth, db } from "../../firebase/firebase";
 import { Conversation, ConversationInfo } from "../../types";
 
 const ConversationsList = styled.ul`
-  margin-top: 10px;
+  margin-top: 5px;
   margin-bottom: auto;
   padding: 0 13px;
   overflow-y: auto;
@@ -27,7 +27,8 @@ const ConversationItem = styled(motion.li)<{ active: boolean }>`
   background-color: ${(props) => (props.active ? "#3478f6" : "")};
   border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: color, background-color;
+  transition-duration: 0.2s;
   :hover:not(:has(.child)) {
     background-color: ${(props) => (props.active ? "" : props.theme.bgColorHover)};
   }
@@ -76,6 +77,8 @@ const MoreButton = styled.button<{ active: boolean }>`
   color: ${(props) => (props.active ? "white" : props.theme.textColor)};
   background-color: transparent;
   border: none;
+  transition: color;
+  transition-duration: 0.2s;
   cursor: pointer;
 `;
 
@@ -87,7 +90,8 @@ const BottomBorder = styled.span`
     display: block;
     margin-left: 69px;
     border-bottom: 0.5px solid ${(props) => props.theme.borderColorPrimary};
-    transition: all 0.2s;
+    transition: border;
+    transition-duration: 0.2s;
   }
 `;
 

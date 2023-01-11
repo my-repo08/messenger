@@ -28,7 +28,8 @@ const AuthSection = styled.section`
   flex: 1;
   background-color: ${(props) => props.theme.bgColorPrimary};
   border-left: 0.5px solid ${(props) => props.theme.borderColorPrimary};
-  transition: all 0.2s;
+  transition: background-color, border;
+  transition-duration: 0.2s;
 `;
 
 interface AuthLayoutProps {

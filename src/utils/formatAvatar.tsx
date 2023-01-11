@@ -6,7 +6,6 @@ const Avatar = styled.img`
   width: 40px;
   margin-right: 10px;
   border-radius: 50%;
-  transition: all 0.2s;
   object-fit: cover;
 `;
 

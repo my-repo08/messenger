@@ -46,7 +46,8 @@ const SearchInput = styled.input`
   border: 0.5px solid ${(props) => props.theme.borderColor};
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: color, background-color, border;
+  transition-duration: 0.2s;
   :focus {
     outline: none;
     border-color: ${(props) => props.theme.inputBorderColor};
@@ -67,7 +68,8 @@ const CloseButton = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: color;
+  transition-duration: 0.2s;
   @media (max-width: 768px) {
     top: 9px;
     right: 10px;
@@ -78,6 +80,8 @@ const UsersList = styled.ul`
   margin-top: 10px;
   padding: 0 10px;
   border-bottom: 0.5px solid ${(props) => props.theme.borderColorPrimary};
+  transition: border;
+  transition-duration: 0.2s;
 `;
 
 const UserItem = styled.li`
@@ -114,7 +118,8 @@ const CreateButton = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: color;
+  transition-duration: 0.2s;
   :not(:disabled) {
     :hover {
       color: ${(props) => props.theme.textColorHover};
@@ -128,7 +133,7 @@ const CreateButton = styled.button`
 
 const NotFound = styled.p`
   margin-left: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   font-size: 14px;
 `;
 

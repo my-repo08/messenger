@@ -8,7 +8,8 @@ const HeaderEl = styled.header`
   color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.headerColor};
   border-bottom: 0.5px solid ${(props) => props.theme.headerBorderColor};
-  transition: all 0.2s;
+  transition: color, background-color, border;
+  transition-duration: 0.2s;
 `;
 
 const BackButton = styled.button`
@@ -24,7 +25,8 @@ const BackButton = styled.button`
   background-color: transparent;
   border: 0.5px solid ${(props) => props.theme.borderColorPrimary};
   border-radius: 8px;
-  transition: all 0.2s;
+  transition: color, border;
+  transition-duration: 0.2s;
   cursor: pointer;
   @media (max-width: 768px) {
     display: flex;

@@ -9,7 +9,8 @@ const Container = styled.section<{ open: boolean }>`
   display: flex;
   flex-direction: column;
   background-color: ${(props) => props.theme.bgColorPrimary};
-  transition: all 0.2s;
+  transition: background-color;
+  transition-duration: 0.2s;
   @media (max-width: 768px) {
     display: ${(props) => (props.open ? "none" : "flex")};
   }
@@ -30,7 +31,8 @@ const PlaceholderWrapper = styled.div`
   justify-content: center;
   align-items: center;
   color: ${(props) => props.theme.textColor};
-  transition: all 0.2s;
+  transition: color;
+  transition-duration: 0.2s;
   user-select: none;
 `;
 

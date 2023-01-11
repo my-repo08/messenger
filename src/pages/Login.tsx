@@ -36,7 +36,8 @@ const Wrapper = styled.div`
   padding: 15px;
   border: 0.5px solid ${(props) => props.theme.borderColorPrimary};
   border-radius: 10px;
-  transition: all 0.2s;
+  transition: border;
+  transition-duration: 0.2s;
   @media (max-width: 768px) {
     width: 80%;
   }
@@ -48,7 +49,8 @@ const Title = styled.h1`
   left: 15px;
   font-size: 30px;
   color: ${(props) => props.theme.textColor};
-  transition: all 0.2s;
+  transition: color;
+  transition-duration: 0.2s;
 `;
 
 const CustomLink = styled(Link)`
@@ -58,7 +60,8 @@ const CustomLink = styled(Link)`
   font-size: 13px;
   color: ${(props) => props.theme.textColor};
   text-decoration: none;
-  transition: all 0.2s;
+  transition: color;
+  transition-duration: 0.2s;
   :hover {
     color: ${(props) => props.theme.textColorHover};
     text-decoration: underline;
@@ -115,7 +118,8 @@ const ResetButton = styled.button`
   color: ${(props) => props.theme.textColor};
   border: none;
   background: transparent;
-  transition: all 0.2s;
+  transition: color;
+  transition-duration: 0.2s;
   cursor: pointer;
   :hover {
     text-decoration: underline;
@@ -138,7 +142,6 @@ const SubmitButton = styled(Button)`
   height: 60px;
   margin-top: 15px;
   margin-bottom: 15px;
-  transition: all 0.2s;
 `;
 
 const ThemeButtonWrapper = styled.div`
@@ -153,7 +156,6 @@ const GoogleButton = styled(Button)`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  transition: all 0.2s;
 `;
 
 interface LoginProps {

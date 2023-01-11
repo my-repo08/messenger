@@ -23,6 +23,8 @@ const ModalContent = styled(motion.div)`
   background-color: ${(props) => props.theme.bgColorPrimary};
   border: 0.5px solid ${(props) => props.theme.borderColorPrimary};
   border-radius: 14px;
+  transition: color, background-color, border;
+  transition-duration: 0.2s;
   @media (max-width: 768px) {
     width: 300px;
     margin-bottom: 80px;
