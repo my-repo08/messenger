@@ -40,16 +40,19 @@ const MessagesList = styled.ul`
 const MessageItem = styled.li<{ sentByMe: boolean }>`
   display: flex;
   justify-content: ${(props) => (props.sentByMe ? "flex-end" : "flex-start")};
-  padding: 10px;
+  padding: 5px 10px;
   color: ${(props) => props.theme.textColor};
   transition: color;
   transition-duration: 0.2s;
 `;
 
 const MessageWrapper = styled.div`
-  max-width: 65%;
+  max-width: 40%;
   display: flex;
   flex-direction: column;
+  @media (max-width: 768px) {
+    max-width: 60%;
+  }
 `;
 
 const MessageText = styled.p<{ sentByMe: boolean }>`
@@ -71,8 +74,6 @@ const Datestamp = styled.span<{ sentByMe: boolean }>`
   margin-right: ${(props) => (props.sentByMe ? "5px" : 0)};
   margin-bottom: 5px;
   font-size: 12px;
-  transition: color;
-  transition-duration: 0.2s;
 `;
 
 const Form = styled.form`
@@ -112,6 +113,9 @@ const SendButton = styled.button`
   border-radius: 50%;
   border: none;
   cursor: pointer;
+  :disabled {
+    cursor: not-allowed;
+  }
 `;
 
 interface MessagesProps {
@@ -139,8 +143,11 @@ const Messages: React.FC<MessagesProps> = ({ conversationInfo }) => {
           ...item.data(),
         }));
         setMessages(myMessages as Message[]);
-        //@ts-ignore
-        if (myMessages[0]?.sender?.uid !== currentUser?.uid) {
+        if (
+          //@ts-ignore
+          myMessages[0]?.sender?.uid !== currentUser?.uid &&
+          conversationInfo.conversationId
+        ) {
           onViewLatestMessage(currentUser?.uid as string, conversationInfo);
         }
       });
@@ -158,6 +165,9 @@ const Messages: React.FC<MessagesProps> = ({ conversationInfo }) => {
 
   const onSendMessage = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    if (!messageText.trim()) {
+      return;
+    }
     const text = messageText;
     setMessageText("");
     const batch = writeBatch(db);
@@ -237,6 +247,8 @@ const Messages: React.FC<MessagesProps> = ({ conversationInfo }) => {
     }
   };
 
+  const isDisabled = !messageText.trim();
+
   return (
     <MessagesWrapper>
       <MessagesList>
@@ -263,7 +275,7 @@ const Messages: React.FC<MessagesProps> = ({ conversationInfo }) => {
           value={messageText}
           onChange={(evt) => setMessageText(evt.target.value)}
         />
-        <SendButton type="submit">
+        <SendButton type="submit" disabled={isDisabled}>
           <BsFillArrowUpCircleFill size={24} />
         </SendButton>
       </Form>

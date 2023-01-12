@@ -55,14 +55,14 @@ const Datetime = styled.div`
 `;
 
 const LatestMessage = styled.span`
-  max-width: 220px;
+  max-width: 230px;
   font-size: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   opacity: 0.8;
   @media (max-width: 768px) {
-    max-width: 270px;
+    max-width: 65vw;
   }
 `;
 
@@ -165,12 +165,11 @@ const Conversations: React.FC<ConversationsProps> = ({
         {conversations?.map((conversation) => {
           const formattedUser = formatUsername(conversation, currentUser?.uid!);
           return (
-            <>
+            <div key={conversation.id}>
               <ConversationItem
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0.3, x: -200 }}
-                transition={{ duration: 0.1 }}
-                key={conversation.id}
+                exit={{ opacity: 0, x: -500 }}
+                transition={{ duration: 0.2 }}
                 active={conversationInfo?.conversationId === conversation.id}
                 onClick={() =>
                   onViewConversation({
@@ -204,7 +203,7 @@ const Conversations: React.FC<ConversationsProps> = ({
                 </AnimatePresence>
               </ConversationItem>
               <BottomBorder />
-            </>
+            </div>
           );
         })}
       </AnimatePresence>

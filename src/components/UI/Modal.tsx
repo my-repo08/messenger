@@ -27,7 +27,7 @@ const ModalContent = styled(motion.div)`
   transition-duration: 0.2s;
   @media (max-width: 768px) {
     width: 300px;
-    margin-bottom: 80px;
+    margin-bottom: 150px;
     padding: 25px;
   }
 `;
