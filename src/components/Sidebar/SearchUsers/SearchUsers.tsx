@@ -147,7 +147,7 @@ const SearchUsers: React.FC = () => {
     setIsSearching(true);
 
     await searchUsers(
-      usernameRef.current.value,
+      usernameRef.current.value.trim(),
       currentUser?.displayName as string,
       setSearchedUsers
     );

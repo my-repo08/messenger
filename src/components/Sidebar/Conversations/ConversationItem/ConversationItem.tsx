@@ -144,10 +144,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
           <Username>{user.displayName}</Username>
           <LatestMessage>{conversation.latestMessage}</LatestMessage>
         </UsernameWrapper>
-        <Datetime>
-          {formatTimestamp(conversation.updatedAt)}
-          <Datetime>{formatTimestamp(conversation.updatedAt)}</Datetime>
-        </Datetime>
+        <Datetime>{formatTimestamp(conversation.updatedAt)}</Datetime>
         <MoreButton
           active={isActive}
           onClick={(evt) => onSetConversationId(evt, conversation.id as string)}
