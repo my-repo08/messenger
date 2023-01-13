@@ -1,34 +1,37 @@
-import styled from "styled-components";
 import { motion } from "framer-motion";
-import toast from "react-hot-toast";
-import { AiFillDelete } from "react-icons/ai";
-import { doc, writeBatch } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
 import { useState } from "react";
-import { ConversationInfo } from "../../types";
+import { AiFillDelete } from "react-icons/ai";
+import { useSetRecoilState } from "recoil";
+import styled from "styled-components";
+import { currentConversationState } from "../../../../app/atoms/currentConversation";
+import { deleteConversation } from "../../../../app/service/conversationsService";
 
 const MoreMenuEl = styled(motion.div)`
   position: absolute;
-  top: 2px;
-  right: 25px;
-  font-size: 14px;
+  top: -3px;
+  right: 30px;
+  width: 100px;
+  padding: 5px 0;
   color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.menuBgColor};
   border-radius: 5px;
-  border: 1px solid ${(props) => props.theme.borderColor};
+  border: 0.5px solid ${(props) => props.theme.borderColor};
   transition: color, background-color, border;
   transition-duration: 0.2s;
   @media (max-width: 768px) {
-    top: 3px;
+    top: -2px;
+    width: 90px;
   }
 `;
 
 const DeleteItem = styled.button`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
   padding: 1px 8px;
+  font-size: 14px;
   color: ${(props) => props.theme.textColor};
   background-color: transparent;
   border: none;
@@ -42,6 +45,9 @@ const DeleteItem = styled.button`
   }
   :disabled {
     cursor: not-allowed;
+  }
+  @media (max-width: 768px) {
+    font-size: 12px;
   }
 `;
 
@@ -59,31 +65,19 @@ const VARIANTS = {
 
 interface MoreMenuProps {
   conversationId: string;
-  setConversationInfo: (conversationInfo: ConversationInfo) => void;
 }
 
-const MoreMenu: React.FC<MoreMenuProps> = ({ conversationId, setConversationInfo }) => {
+const MoreMenu: React.FC<MoreMenuProps> = ({ conversationId }) => {
   const [isDeletingLoading, setIsDeletingLoading] = useState(false);
+
+  const setCurrentConversationStateValue = useSetRecoilState(currentConversationState);
 
   const onDeleteConversation = async () => {
     if (!conversationId) {
       return;
     }
     setIsDeletingLoading(true);
-    const batch = writeBatch(db);
-    try {
-      batch.delete(doc(db, "conversations", conversationId));
-      await batch.commit();
-      setConversationInfo({
-        conversationId: "",
-        creatorId: "",
-        participantId: "",
-        username: "",
-      });
-    } catch (error: any) {
-      console.log(error.message);
-      toast.error(error.message);
-    }
+    await deleteConversation(conversationId, setCurrentConversationStateValue);
     setIsDeletingLoading(false);
   };
 

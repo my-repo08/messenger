@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   useAuthState,
@@ -11,7 +11,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import Input from "../components/UI/Input";
 import Button from "../components/UI/Button";
 import ThemeToggleButton from "../components/ThemeToggleButton";
-import { auth } from "../firebase/firebase";
+import { auth } from "../firebase";
 import { FIREBASE_REGISTER_ERROR } from "../firebase/errors";
 import logo from "../assets/logo.png";
 
@@ -139,11 +139,9 @@ const Signup: React.FC<SignupProps> = ({ toggleTheme }) => {
   const [createUserWithEmailAndPassword, , isLoading, credentialsError] =
     useCreateUserWithEmailAndPassword(auth);
 
-  const [signUpForm, setSignUpForm] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement | null>(null);
 
   const [isPasswordVisible, setPasswordVisible] = useState({
     password: false,
@@ -166,19 +164,29 @@ const Signup: React.FC<SignupProps> = ({ toggleTheme }) => {
     }));
   };
 
-  const onInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setSignUpForm((prev) => ({
-      ...prev,
-      [evt.target.name]: evt.target.value,
-    }));
-  };
-
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
-
     if (error) setError("");
 
-    if (signUpForm.password !== signUpForm.confirmPassword) {
+    if (!emailRef.current || !passwordRef.current) {
+      return;
+    }
+
+    const formattedEmail = emailRef.current?.value.replaceAll(" ", "");
+    const formattedPassword = passwordRef.current?.value.replaceAll(" ", "");
+    const formattedConfirmPassword = passwordRef.current?.value.replaceAll(" ", "");
+
+    if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(formattedEmail)) {
+      setError("Invalid email");
+      return;
+    }
+
+    if (formattedPassword.length < 6) {
+      setError("Password must contain at least 6 characters");
+      return;
+    }
+
+    if (formattedPassword !== formattedConfirmPassword) {
       setError("Passwords don't match");
       return;
     }
@@ -186,17 +194,12 @@ const Signup: React.FC<SignupProps> = ({ toggleTheme }) => {
     const toastId = toast.loading("Loading...");
 
     try {
-      await createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
+      await createUserWithEmailAndPassword(formattedEmail, formattedPassword);
     } catch (error: any) {
       setError(error.message);
     }
     toast.dismiss(toastId);
   };
-
-  const isDisabled =
-    !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(signUpForm.email) ||
-    signUpForm.password.length < 6 ||
-    isLoading;
 
   if (isUserLoading) {
     return <></>;
@@ -213,20 +216,13 @@ const Signup: React.FC<SignupProps> = ({ toggleTheme }) => {
           <CustomLink to="/login">Have an account? Log in</CustomLink>
           <Logo src={logo} />
           <Form onSubmit={handleSubmit}>
-            <Input
-              type="email"
-              name="email"
-              placeholder="Your email"
-              maxLength={30}
-              onChange={onInputChange}
-            />
+            <Input type="email" placeholder="Your email" maxLength={30} ref={emailRef} />
             <InputWrapper>
               <Input
-                name="password"
                 placeholder="Create password"
                 maxLength={30}
                 type={isPasswordVisible.password ? "text" : "password"}
-                onChange={onInputChange}
+                ref={passwordRef}
               />
               <ShowPswd onClick={handleSetPasswordVisible}>
                 {isPasswordVisible.password ? <BiHide /> : <BiShow />}
@@ -234,11 +230,10 @@ const Signup: React.FC<SignupProps> = ({ toggleTheme }) => {
             </InputWrapper>
             <InputWrapper>
               <Input
-                name="confirmPassword"
                 placeholder="Confirm password"
                 maxLength={30}
                 type={isPasswordVisible.confirmPassword ? "text" : "password"}
-                onChange={onInputChange}
+                ref={confirmPasswordRef}
               />
               <ShowPswd onClick={handleSetConfirmPasswordVisible}>
                 {isPasswordVisible.confirmPassword ? <BiHide /> : <BiShow />}
@@ -250,7 +245,7 @@ const Signup: React.FC<SignupProps> = ({ toggleTheme }) => {
                   credentialsError?.message as keyof typeof FIREBASE_REGISTER_ERROR
                 ]}
             </ErrorMsg>
-            <SubmitButton type="submit" disabled={isDisabled}>
+            <SubmitButton type="submit" disabled={isLoading}>
               Sign up
             </SubmitButton>
           </Form>

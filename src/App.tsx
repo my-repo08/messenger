@@ -6,7 +6,7 @@ import ProtectedRoute from "./app/ProtectedRoute";
 import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import { auth } from "./firebase/firebase";
+import { auth } from "./firebase";
 import { darkTheme, ligthTheme } from "./app/theme";
 
 const App: React.FC = () => {

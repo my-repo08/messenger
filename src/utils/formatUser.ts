@@ -1,9 +1,9 @@
 import { Conversation } from "../types";
 
-const formatUsername = (conversation: Conversation, currentUserId: string) => {
+const formatUser = (conversation: Conversation, currentUserId: string | undefined) => {
   return conversation.creator.uid === currentUserId
     ? conversation.participant
     : conversation.creator;
 };
 
-export default formatUsername;
+export default formatUser;

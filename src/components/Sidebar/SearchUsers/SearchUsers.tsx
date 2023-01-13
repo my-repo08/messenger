@@ -1,23 +1,17 @@
-import { useState } from "react";
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  serverTimestamp,
-  setDoc,
-  where,
-} from "firebase/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { nanoid } from "nanoid";
-import styled from "styled-components";
-import toast from "react-hot-toast";
-import { MdAdd } from "react-icons/md";
-import { IoClose } from "react-icons/io5";
-import { GoSearch } from "react-icons/go";
-import { auth, db } from "../../firebase/firebase";
-import { formatAvatar } from "../../utils";
 import { User } from "firebase/auth";
+import { useRef, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { GoSearch } from "react-icons/go";
+import { IoClose } from "react-icons/io5";
+import { MdAdd } from "react-icons/md";
+import styled from "styled-components";
+import {
+  createConversation,
+  searchUsers,
+} from "../../../app/service/conversationsService";
+import { auth } from "../../../firebase";
+import { Conversation } from "../../../types";
+import { formatAvatar } from "../../../utils";
 
 const Form = styled.form`
   position: relative;
@@ -140,43 +134,32 @@ const NotFound = styled.p`
 const SearchUsers: React.FC = () => {
   const [currentUser] = useAuthState(auth);
 
-  const [username, setUsername] = useState("");
+  const usernameRef = useRef<HTMLInputElement | null>(null);
   const [isSearching, setIsSearching] = useState(false);
   const [isConversationCreating, setIsConversationCreating] = useState(false);
   const [searchedUsers, setSearchedUsers] = useState<User[] | null>(null);
 
-  const onChangeUsername = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(evt.target.value);
-  };
-
-  const onSearchUser = async (evt: React.FormEvent<HTMLFormElement>) => {
+  const onSearchUsers = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (!username.trim()) {
+    if (!usernameRef.current?.value.trim()) {
       return;
     }
     setIsSearching(true);
-    try {
-      const userQuery = query(
-        collection(db, "users"),
-        where("displayName", "==", username),
-        where("displayName", "!=", currentUser?.displayName)
-      );
-      const userDocs = await getDocs(userQuery);
-      const users = userDocs.docs.map((doc) => doc.data());
-      setSearchedUsers(users as User[]);
-    } catch (error: any) {
-      console.log(error.message);
-      toast.error(error.message);
-    }
+
+    await searchUsers(
+      usernameRef.current.value,
+      currentUser?.displayName as string,
+      setSearchedUsers
+    );
     setIsSearching(false);
   };
 
   const onCreateConversation = async (user: User) => {
     setIsConversationCreating(true);
-    const newConversation = {
+    const newConversation: Conversation = {
       creator: {
-        uid: currentUser?.uid,
-        displayName: currentUser?.displayName,
+        uid: currentUser?.uid!,
+        displayName: currentUser?.displayName!,
         photoURL: currentUser?.photoURL || null,
       },
       participant: {
@@ -187,39 +170,33 @@ const SearchUsers: React.FC = () => {
       latestMessage: "",
       hasCreatorSeenLatestMessage: true,
       hasParticipantSeenLatestMessage: false,
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
-    try {
-      await setDoc(doc(db, "conversations", nanoid()), newConversation);
-      setUsername("");
-      setSearchedUsers(null);
-    } catch (error: any) {
-      console.log(error.message);
-      toast.error(error.message);
-    }
+    await createConversation(newConversation, onClearSearchedUsers);
     setIsConversationCreating(false);
   };
 
   const onClearSearchedUsers = () => {
-    setUsername("");
+    if (usernameRef.current) {
+      usernameRef.current.value = "";
+    }
     setSearchedUsers(null);
   };
 
   return (
     <>
-      <Form onSubmit={onSearchUser}>
+      <Form onSubmit={onSearchUsers}>
         <SearchIcon>
-          <GoSearch size={15} />
+          <GoSearch size={14} />
         </SearchIcon>
         <SearchInput
           placeholder="Search"
           maxLength={10}
-          value={username}
-          onChange={onChangeUsername}
+          ref={usernameRef}
           disabled={isSearching}
         />
-        {username && (
+        {usernameRef.current?.value && (
           <CloseButton type="button" onClick={onClearSearchedUsers}>
             <IoClose size={15} />
           </CloseButton>

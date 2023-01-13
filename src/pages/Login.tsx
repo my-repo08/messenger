@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   useAuthState,
@@ -15,7 +15,7 @@ import Input from "../components/UI/Input";
 import Button from "../components/UI/Button";
 import ThemeToggleButton from "../components/ThemeToggleButton";
 import ResetPasswordModal from "../components/ResetPasswordModal";
-import { auth } from "../firebase/firebase";
+import { auth } from "../firebase";
 import { FIREBASE_LOGIN_ERRORS } from "../firebase/errors";
 import logo from "../assets/logo.png";
 
@@ -165,7 +165,7 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ toggleTheme }) => {
   const [, userLoading] = useAuthState(auth);
 
-  const [signInWithEmailAndPassword, , loading, credentialsError] =
+  const [signInWithEmailAndPassword, , isLoading, credentialsError] =
     useSignInWithEmailAndPassword(auth);
 
   const [signInWithGoogle] = useSignInWithGoogle(auth);
@@ -176,37 +176,39 @@ const Login: React.FC<LoginProps> = ({ toggleTheme }) => {
 
   const [isPasswordVisible, setPasswordVisible] = useState(false);
 
-  const [loginForm, setLoginForm] = useState({
-    email: "",
-    password: "",
-  });
-
-  const onInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginForm((prev) => ({
-      ...prev,
-      [evt.target.name]: evt.target.value,
-    }));
-  };
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
-
     if (error) setError("");
+
+    if (!emailRef.current || !passwordRef.current) {
+      return;
+    }
+
+    const formattedEmail = emailRef.current?.value.replaceAll(" ", "");
+    const formattedPassword = passwordRef.current?.value.replaceAll(" ", "");
+
+    if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(formattedEmail)) {
+      setError("Invalid email");
+      return;
+    }
+
+    if (formattedPassword.length < 6) {
+      setError("Password must contain at least 6 characters");
+      return;
+    }
 
     const toastId = toast.loading("Loading...");
 
     try {
-      await signInWithEmailAndPassword(loginForm.email, loginForm.password);
+      await signInWithEmailAndPassword(formattedEmail, formattedPassword);
     } catch (error: any) {
       setError(error.message);
     }
     toast.dismiss(toastId);
   };
-
-  const isDisabled =
-    !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(loginForm.email) ||
-    !loginForm.password ||
-    loading;
 
   if (userLoading) {
     return <></>;
@@ -223,20 +225,13 @@ const Login: React.FC<LoginProps> = ({ toggleTheme }) => {
           <CustomLink to="/signup">No account yet? Register</CustomLink>
           <Logo src={logo} />
           <Form onSubmit={handleSubmit}>
-            <Input
-              type="email"
-              name="email"
-              placeholder="Your email"
-              maxLength={30}
-              onChange={onInputChange}
-            />
+            <Input type="email" placeholder="Your email" maxLength={30} ref={emailRef} />
             <InputWrapper>
               <Input
                 type={isPasswordVisible ? "text" : "password"}
-                name="password"
                 placeholder="Password"
                 maxLength={30}
-                onChange={onInputChange}
+                ref={passwordRef}
               />
               <ShowPswd onClick={() => setPasswordVisible((prev) => !prev)}>
                 {isPasswordVisible ? <BiHide /> : <BiShow />}
@@ -251,7 +246,7 @@ const Login: React.FC<LoginProps> = ({ toggleTheme }) => {
                   credentialsError?.message as keyof typeof FIREBASE_LOGIN_ERRORS
                 ]}
             </ErrorMsg>
-            <SubmitButton type="submit" disabled={isDisabled}>
+            <SubmitButton type="submit" disabled={isLoading}>
               Log in
             </SubmitButton>
             <GoogleButton type="button" onClick={() => signInWithGoogle()}>

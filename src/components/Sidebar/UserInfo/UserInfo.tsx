@@ -4,8 +4,8 @@ import toast from "react-hot-toast";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { auth } from "../../firebase/firebase";
-import { formatAvatar } from "../../utils";
+import { auth } from "../../../firebase";
+import { formatAvatar } from "../../../utils";
 
 const Wrapper = styled.div`
   display: flex;
@@ -50,12 +50,13 @@ const UserInfo: React.FC = () => {
   const navigate = useNavigate();
   const [currentUser] = useAuthState(auth);
 
-  const hanldeLogout = async () => {
+  const onSignOut = async () => {
     try {
       await signOut(auth);
       navigate("/login");
-    } catch (error: any) {
-      toast.error(error.message as string);
+    } catch (error) {
+      console.log(error as Error);
+      toast.error("Unable to log out");
     }
   };
 
@@ -68,7 +69,7 @@ const UserInfo: React.FC = () => {
           <UserEmail>{currentUser?.email}</UserEmail>
         </div>
       </UserWrapper>
-      <LogoutButton onClick={hanldeLogout}>
+      <LogoutButton onClick={onSignOut}>
         <IoLogOutOutline size={26} />
       </LogoutButton>
     </Wrapper>

@@ -1,9 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
-import ChatWindow from "../components/Chat/ChatWindow";
-import SidebarWrapper from "../components/Sidebar/SidebarWrapper";
+import ChatWindow from "../components/Chat/ChatWindow/ChatWindow";
+import SidebarWrapper from "../components/Sidebar/SidebarWrapper/SidebarWrapper";
 import ThemeToggleButton from "../components/ThemeToggleButton";
-import { ConversationInfo } from "../types";
 
 const MainEl = styled.main`
   height: 100vh;
@@ -24,24 +23,12 @@ interface ChatProps {
 }
 
 const Main: React.FC<ChatProps> = ({ toggleTheme }) => {
-  const [conversationInfo, setConversationInfo] = useState<ConversationInfo | null>(null);
-
   const [isSibebarOpen, setIsSibebarOpen] = useState(true);
 
   return (
     <MainEl>
-      <SidebarWrapper
-        conversationInfo={conversationInfo}
-        setConversationInfo={setConversationInfo}
-        isSibebarOpen={isSibebarOpen}
-        setIsSibebarOpen={setIsSibebarOpen}
-      />
-      <ChatWindow
-        conversationInfo={conversationInfo}
-        setConversationInfo={setConversationInfo}
-        isSibebarOpen={isSibebarOpen}
-        setIsSibebarOpen={setIsSibebarOpen}
-      />
+      <SidebarWrapper isSibebarOpen={isSibebarOpen} setIsSibebarOpen={setIsSibebarOpen} />
+      <ChatWindow isSibebarOpen={isSibebarOpen} setIsSibebarOpen={setIsSibebarOpen} />
       <ThemeButtonWrapper>
         <ThemeToggleButton toggleTheme={toggleTheme} />
       </ThemeButtonWrapper>

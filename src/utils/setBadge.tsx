@@ -11,7 +11,7 @@ const Badge = styled.span`
   border-radius: 50%;
 `;
 
-const setBadge = (conversation: Conversation, currentUserId: string) => {
+const setBadge = (conversation: Conversation, currentUserId: string | undefined) => {
   if (conversation.creator.uid === currentUserId) {
     if (!conversation.hasCreatorSeenLatestMessage) {
       return <Badge />;

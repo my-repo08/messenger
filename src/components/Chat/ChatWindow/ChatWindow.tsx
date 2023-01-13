@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { useRecoilValue } from "recoil";
 import { GiConversation } from "react-icons/gi";
-import Messages from "./Messages";
-import Header from "./Header";
-import { ConversationInfo } from "../../types";
+import Messages from "../Messages/Messages";
+import Header from "../Header/Header";
+import { currentConversationState } from "../../../app/atoms/currentConversation";
 
 const Container = styled.section<{ open: boolean }>`
   flex: 1;
@@ -42,34 +43,24 @@ const PlaceholderText = styled.p`
 `;
 
 interface ChatWindowProps {
-  conversationInfo: ConversationInfo | null;
-  setConversationInfo: (conversationInfo: ConversationInfo | null) => void;
   isSibebarOpen: boolean;
   setIsSibebarOpen: (isOpen: boolean) => void;
 }
 
-const ChatWindow: React.FC<ChatWindowProps> = ({
-  conversationInfo,
-  setConversationInfo,
-  isSibebarOpen,
-  setIsSibebarOpen,
-}) => {
+const ChatWindow: React.FC<ChatWindowProps> = ({ isSibebarOpen, setIsSibebarOpen }) => {
+  const currentConversationStateValue = useRecoilValue(currentConversationState);
   return (
     <Container open={isSibebarOpen}>
       <Wrapper>
-        <Header
-          conversationInfo={conversationInfo}
-          setConversationInfo={setConversationInfo}
-          setIsSibebarOpen={setIsSibebarOpen}
-        />
-        {!conversationInfo?.conversationId ? (
+        <Header setIsSibebarOpen={setIsSibebarOpen} />
+        {!currentConversationStateValue.conversation?.id ? (
           <PlaceholderWrapper>
             <GiConversation size={130} />
             <PlaceholderText>No Conversation Selected</PlaceholderText>
             <div>Messages you send or receive will appear here</div>
           </PlaceholderWrapper>
         ) : (
-          <Messages conversationInfo={conversationInfo} />
+          <Messages />
         )}
       </Wrapper>
     </Container>

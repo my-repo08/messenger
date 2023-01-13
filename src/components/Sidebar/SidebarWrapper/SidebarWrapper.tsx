@@ -2,12 +2,11 @@ import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
-import Conversations from "./Conversations";
-import SearchUsers from "./SearchUsers";
-import UserInfo from "./UserInfo";
-import UserModal from "./UserModal";
-import { auth } from "../../firebase/firebase";
-import { ConversationInfo } from "../../types";
+import Conversations from "../Conversations/Conversations";
+import SearchUsers from "../SearchUsers/SearchUsers";
+import UserInfo from "../UserInfo/UserInfo";
+import UserModal from "../UserModal/UserModal";
+import { auth } from "../../../firebase";
 
 const Container = styled.section<{ open: boolean }>`
   display: flex;
@@ -36,18 +35,11 @@ const Wrapper = styled.div`
 `;
 
 interface SidebarProps {
-  conversationInfo: ConversationInfo | null;
-  setConversationInfo: (conversationInfo: ConversationInfo | null) => void;
   isSibebarOpen: boolean;
   setIsSibebarOpen: (isOpen: boolean) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({
-  conversationInfo,
-  setConversationInfo,
-  isSibebarOpen,
-  setIsSibebarOpen,
-}) => {
+const Sidebar: React.FC<SidebarProps> = ({ isSibebarOpen, setIsSibebarOpen }) => {
   const [currentUser] = useAuthState(auth);
 
   const [isUserModalOpen, setIsUserModalOpen] = useState(!currentUser?.displayName);
@@ -56,11 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     <Container open={isSibebarOpen}>
       <Wrapper>
         <SearchUsers />
-        <Conversations
-          conversationInfo={conversationInfo}
-          setConversationInfo={setConversationInfo}
-          setIsSibebarOpen={setIsSibebarOpen}
-        />
+        <Conversations setIsSibebarOpen={setIsSibebarOpen} />
       </Wrapper>
       <UserInfo />
       <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>

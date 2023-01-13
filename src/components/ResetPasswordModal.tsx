@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
 import styled from "styled-components";
 import { AiOutlineMail } from "react-icons/ai";
-import { auth } from "../firebase/firebase";
+import { auth } from "../firebase";
 import { Button, Input, Modal } from "../components/UI";
 
 const Title = styled.h3`

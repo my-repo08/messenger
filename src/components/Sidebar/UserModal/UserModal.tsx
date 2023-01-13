@@ -1,15 +1,13 @@
 import { useRef, useState } from "react";
-import { getDownloadURL, uploadString, ref } from "firebase/storage";
-import { doc, updateDoc } from "firebase/firestore";
 import { useAuthState, useUpdateProfile } from "react-firebase-hooks/auth";
 import styled from "styled-components";
-import { toast } from "react-hot-toast";
-import Input from "../UI/Input";
-import Modal from "../UI/Modal";
-import Button from "../UI/Button";
-import useSelectImage from "../../hooks/useSelectImage";
-import { auth, db, storage } from "../../firebase/firebase";
-import userIcon from "../../assets/add-user.png";
+import { updateUserProfile } from "../../../app/service/userService";
+import userIcon from "../../../assets/add-user.png";
+import { auth } from "../../../firebase";
+import useSelectImage from "../../../hooks/useSelectImage";
+import Button from "../../UI/Button";
+import Input from "../../UI/Input";
+import Modal from "../../UI/Modal";
 
 const Title = styled.h4`
   margin-bottom: 20px;
@@ -49,57 +47,48 @@ const SubmitButton = styled(Button)`
 `;
 
 interface UserModalProps {
-  setOpen: (arg: boolean) => void;
+  setOpen: (open: boolean) => void;
 }
 
 const UserModal: React.FC<UserModalProps> = ({ setOpen }) => {
   const [currentUser] = useAuthState(auth);
 
+  const [updateProfile] = useUpdateProfile(auth);
+
   const { selectedImage, onSelectImage } = useSelectImage();
   const selectedImageRef = useRef<HTMLInputElement>(null);
 
-  const [username, setUsername] = useState("");
+  const displayNameRef = useRef<HTMLInputElement | null>(null);
   const [isUpdating, setIsUpdating] = useState(false);
-
-  const onSetUsername = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(evt.target.value);
-  };
 
   const handleSelectImage = () => {
     selectedImageRef.current?.click();
   };
 
-  const [updateProfile] = useUpdateProfile(auth);
-
-  const onUpdateProfile = async (evt: React.FormEvent<HTMLFormElement>) => {
+  const onUpdateUserProfile = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    setIsUpdating(true);
-    let downloadURL = null;
-    try {
-      if (selectedImage) {
-        const imageRef = ref(storage, `users/${currentUser?.uid}/image`);
-        await uploadString(imageRef, selectedImage, "data_url");
-        downloadURL = await getDownloadURL(imageRef);
+    if (!displayNameRef.current?.value.trim()) {
+      if (displayNameRef.current?.value) {
+        displayNameRef.current.value = "";
+        displayNameRef.current?.focus();
       }
-      await updateProfile({ displayName: username, photoURL: downloadURL });
-      await updateDoc(doc(db, "users", currentUser?.uid as string), {
-        displayName: username,
-        photoURL: downloadURL,
-      });
-      setOpen(false);
-    } catch (error: any) {
-      console.log(error.message);
-      toast.error(error.message);
+      return;
     }
+    setIsUpdating(true);
+    await updateUserProfile(
+      selectedImage,
+      currentUser?.uid,
+      displayNameRef.current.value,
+      updateProfile,
+      setOpen
+    );
     setIsUpdating(false);
   };
-
-  const isDisabled = !username.trim() || isUpdating;
 
   return (
     <Modal onClick={() => {}}>
       <Title>Set up your profile</Title>
-      <form onSubmit={onUpdateProfile}>
+      <form onSubmit={onUpdateUserProfile}>
         <InputWrapper>
           <Avatar src={selectedImage || userIcon} onClick={handleSelectImage} />
           <input
@@ -113,11 +102,10 @@ const UserModal: React.FC<UserModalProps> = ({ setOpen }) => {
           <UsernameInput
             placeholder="Create username"
             maxLength={10}
-            value={username}
-            onChange={onSetUsername}
+            ref={displayNameRef}
           />
         </InputWrapper>
-        <SubmitButton type="submit" disabled={isDisabled}>
+        <SubmitButton type="submit" disabled={isUpdating}>
           Save changes
         </SubmitButton>
       </form>

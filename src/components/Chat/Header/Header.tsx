@@ -1,12 +1,16 @@
+import { useAuthState } from "react-firebase-hooks/auth";
 import { IoIosArrowBack } from "react-icons/io";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { ConversationInfo } from "../../types";
+import { currentConversationState } from "../../../app/atoms/currentConversation";
+import { auth } from "../../../firebase";
+import { formatUser } from "../../../utils";
 
 const HeaderEl = styled.header`
   position: relative;
   padding: 35px 20px;
   color: ${(props) => props.theme.textColor};
-  background-color: ${(props) => props.theme.headerColor};
+  background-color: ${(props) => props.theme.headerBgColor};
   border-bottom: 0.5px solid ${(props) => props.theme.headerBorderColor};
   transition: color, background-color, border;
   transition-duration: 0.2s;
@@ -33,7 +37,7 @@ const BackButton = styled.button`
   }
 `;
 
-const ToUser = styled.span`
+const ToParticipant = styled.span`
   margin-right: 10px;
   opacity: 0.6;
   @media (max-width: 768px) {
@@ -41,7 +45,7 @@ const ToUser = styled.span`
   }
 `;
 
-const ParticipantUser = styled.div`
+const Participant = styled.div`
   position: absolute;
   top: 26px;
   @media (max-width: 768px) {
@@ -50,31 +54,34 @@ const ParticipantUser = styled.div`
 `;
 
 interface HeaderProps {
-  conversationInfo: ConversationInfo | null;
-  setConversationInfo: (conversationInfo: ConversationInfo | null) => void;
   setIsSibebarOpen: (isOpen: boolean) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({
-  conversationInfo,
-  setConversationInfo,
-  setIsSibebarOpen,
-}) => {
+const Header: React.FC<HeaderProps> = ({ setIsSibebarOpen }) => {
+  const [currentUser] = useAuthState(auth);
+
+  const [currentConversationStateValue, setCurrentConversationState] = useRecoilState(
+    currentConversationState
+  );
+
   return (
     <HeaderEl>
       <BackButton
         onClick={() => {
-          setConversationInfo(null);
+          setCurrentConversationState(() => ({ conversation: null }));
           setIsSibebarOpen(true);
         }}
       >
         <IoIosArrowBack size={20} />
       </BackButton>
-      {conversationInfo?.conversationId && (
-        <ParticipantUser>
-          <ToUser>To:</ToUser>
-          {conversationInfo.username}
-        </ParticipantUser>
+      {currentConversationStateValue.conversation?.id && (
+        <Participant>
+          <ToParticipant>To:</ToParticipant>
+          {
+            formatUser(currentConversationStateValue.conversation, currentUser?.uid)
+              .displayName
+          }
+        </Participant>
       )}
     </HeaderEl>
   );
