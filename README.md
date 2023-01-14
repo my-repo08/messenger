@@ -30,28 +30,28 @@
 
 На основной странице доступен непосредственно сам чат. Через поле поиска можно найти определенного пользователя и создать с ним беседу. Список текущих бесед сортируется по времени получения последнего сообщения. Если в беседе есть непрочитанное сообщение, будет отображен синий индикатор.
 
-![3](https://user-images.githubusercontent.com/122017847/212078862-f6027b0e-c877-42ea-a7b1-03263ab809dc.gif)
+![4af1bd7c6e20a48e655b3fecbb7283706a45d1a3](https://user-images.githubusercontent.com/122017847/212473361-224e1906-da8a-4e2d-9425-d6671f4bb64e.gif)
 #
 
 При клике на определённую беседу будет открыто окно диалога, где можно отправлять сообщения. Сообщения отправленные текущем пользователем будут отображены  в правой части диалогового окна, а сообщения отправленные собеседником в левой части.
 
-![4](https://user-images.githubusercontent.com/122017847/212079035-aea639c1-9d0d-48b5-afda-152eaf8e6527.gif)
+![c1fd0ce002edb935ea946a6fd7dd457d6a19eaa7](https://user-images.githubusercontent.com/122017847/212473913-9772f0f6-ee90-4b49-a944-97d5d0928375.gif)
 #
 
 В приложении доступные две темы: светлая (по умолчанию) и темная.
 
-![5](https://user-images.githubusercontent.com/122017847/212079109-60543a28-9b8b-4424-8f20-d3ede3a18657.gif)
+![949a1bfdc31c09a7ed28bfe0703e4bf592fb9c22](https://user-images.githubusercontent.com/122017847/212473267-52d6ea3c-2d8a-4d93-a8ca-7d6aab289bf2.gif)
 #
 
 При клике на кнопку в верхнем правом углу беседы будет открыто дополнительное меню с возможностью удалить текущую беседу и все связанные с ней сообщения.
 
-![6](https://user-images.githubusercontent.com/122017847/212079150-0740105e-cca5-438d-a2b4-4e377ce3e512.gif)
+![4f80a69d74989ffbb6a330137efdcf451394f043](https://user-images.githubusercontent.com/122017847/212473220-78da9e63-d08c-4a2e-8be9-5e093fb23c59.gif)
 #
 
 ### Мобильная версия
 
 Приложение адаптировано под комфортное использование на мобильном телефоне с функционалом десктопной версии:
 
-![7](https://user-images.githubusercontent.com/122017847/212080574-eda093e8-f41e-44c6-a705-b31a103b274b.gif)
+![c2e0e8f4a60abb29bba5eb2486a1c73d30ca024d](https://user-images.githubusercontent.com/122017847/212473509-c90ec1f6-dcc2-48bb-81c0-8c2d1857ac11.gif)
 
-![8](https://user-images.githubusercontent.com/122017847/212080593-46980564-de0e-46c8-a824-bb2547ccf3e0.gif)
+![798524e1444adc762bc9b8b47f61926c520af80c](https://user-images.githubusercontent.com/122017847/212473544-ca84124b-686c-4c3a-8e43-3c6d3b07b53a.gif)
