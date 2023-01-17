@@ -1,9 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { signOut, User } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useResetRecoilState } from "recoil";
+import styled from "styled-components";
 import toast from "react-hot-toast";
 import { IoLogOutOutline } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { currentConversationState } from "../../../app/atoms/currentConversation";
+import { conversationsState } from "../../../app/atoms/conversationsState";
+import { messagesState } from "../../../app/atoms/messagesState";
 import { auth } from "../../../firebase";
 import { formatAvatar } from "../../../utils";
 
@@ -47,12 +51,20 @@ const LogoutButton = styled.button`
 `;
 
 const UserInfo: React.FC = () => {
-  const navigate = useNavigate();
   const [currentUser] = useAuthState(auth);
+
+  const navigate = useNavigate();
+
+  const resetCurrentConversationState = useResetRecoilState(currentConversationState);
+  const resetConversationsState = useResetRecoilState(conversationsState);
+  const resetMessagesState = useResetRecoilState(messagesState);
 
   const onSignOut = async () => {
     try {
       await signOut(auth);
+      resetCurrentConversationState();
+      resetConversationsState();
+      resetMessagesState();
       navigate("/login");
     } catch (error) {
       console.log(error as Error);

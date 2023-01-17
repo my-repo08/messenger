@@ -21,6 +21,10 @@ export const getMessages = async (
   currentConversationId: string,
   setMessagesStateValue: SetterOrUpdater<MessagesState>
 ) => {
+  if (!currentConversationId) {
+    return;
+  }
+
   try {
     const q = query(
       collection(db, `messages/${currentConversationId}/conversationMessages`),
