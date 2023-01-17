@@ -23,7 +23,7 @@
 ![1](https://user-images.githubusercontent.com/122017847/212078766-1edf95e4-130f-4518-9f1d-fa3cd3cc6a5b.gif)
 #
 
-![2](https://user-images.githubusercontent.com/122017847/212078803-31d4a6fa-1529-4f6c-a40c-ce3eab55f990.gif)
+![d54afc531cbe2e76defd5c2d3bda21ff5e684ce7](https://user-images.githubusercontent.com/122017847/212916153-aded466b-02b1-4d42-a36e-c7a07b4ad83a.gif)
 #
 
 ### Главная страница
