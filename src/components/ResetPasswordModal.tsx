@@ -50,7 +50,8 @@ const SuccessMsg = styled.div`
   justify-content: center;
   align-items: center;
   gap: 5px;
-  margin: 22px 0;
+  margin: 20px 0;
+  margin-bottom: 11px;
   font-size: 16px;
   text-align: center;
 `;
