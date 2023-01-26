@@ -1,4 +1,4 @@
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
 import { BiDotsVerticalRounded } from "react-icons/bi";
@@ -106,7 +106,8 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   setIsSibebarOpen,
   isActive,
 }) => {
-  const setCurrentConversationState = useSetRecoilState(currentConversationState);
+  const [currentConversationStateValue, setCurrentConversationStateValue] =
+    useRecoilState(currentConversationState);
 
   const onSetConversationId = (
     evt: React.MouseEvent<HTMLButtonElement>,
@@ -125,7 +126,10 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
       setConversationId(null);
       return;
     }
-    setCurrentConversationState(() => ({ conversation: conversation }));
+    if (conversation.id === currentConversationStateValue.conversation?.id) {
+      return;
+    }
+    setCurrentConversationStateValue(() => ({ conversation: conversation }));
     setIsSibebarOpen(false);
   };
 
