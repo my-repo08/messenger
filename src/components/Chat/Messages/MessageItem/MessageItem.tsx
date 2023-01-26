@@ -12,11 +12,11 @@ const MessageWrapper = styled.li<{ sentByMe: boolean }>`
 `;
 
 const MessageEl = styled.div`
-  max-width: 40%;
+  max-width: 45%;
   display: flex;
   flex-direction: column;
   @media (max-width: 768px) {
-    max-width: 60%;
+    max-width: 75%;
   }
 `;
 

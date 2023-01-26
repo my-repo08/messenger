@@ -23,7 +23,11 @@ export const getConversations = (
   setConversationsStateValue: SetterOrUpdater<ConversationsState>
 ) => {
   try {
-    const q = query(collection(db, "conversations"), orderBy("updatedAt", "desc"));
+    const q = query(
+      collection(db, "conversations"),
+      where("participantIds", "array-contains", currentUserId),
+      orderBy("updatedAt", "desc")
+    );
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const conversations = querySnapshot.docs.map((item) => ({
@@ -31,15 +35,9 @@ export const getConversations = (
         ...item.data(),
       })) as Conversation[];
 
-      const filteredConversations = conversations.filter(
-        (conversation) =>
-          conversation.creator.uid === currentUserId ||
-          conversation.participant.uid === currentUserId
-      );
-
       setConversationsStateValue((prev) => ({
         ...prev,
-        conversations: filteredConversations,
+        conversations,
       }));
     });
 

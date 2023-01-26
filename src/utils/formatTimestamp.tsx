@@ -24,7 +24,6 @@ const formatTimestamp = (timestamp: Timestamp | Date) => {
   } else {
     return (
       <>
-        <span>{dayjs(timestamp.toDate()).format("HH:mm")}</span>
         <span>{dayjs(timestamp.toDate()).format("MMM D")}</span>
       </>
     );

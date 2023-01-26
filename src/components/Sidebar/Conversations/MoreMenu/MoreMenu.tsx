@@ -8,8 +8,8 @@ import { deleteConversation } from "../../../../app/service/conversationsService
 
 const MoreMenuEl = styled(motion.div)`
   position: absolute;
-  top: -3px;
-  right: 30px;
+  top: -2px;
+  right: 28px;
   width: 100px;
   padding: 5px 0;
   color: ${(props) => props.theme.textColor};
@@ -53,13 +53,17 @@ const DeleteItem = styled.button`
 
 const VARIANTS = {
   hidden: {
-    scale: 0,
+    scale: 0.3,
   },
   visible: {
     scale: 1,
   },
   exit: {
-    scale: 0,
+    scale: 0.3,
+    opacity: 0,
+    transition: {
+      duration: 0.1,
+    },
   },
 };
 

@@ -50,7 +50,7 @@ const Conversations: React.FC<ConversationsProps> = ({ setIsSibebarOpen }) => {
               user={formattedUser}
               setIsSibebarOpen={setIsSibebarOpen}
               isActive={
-                currentConversationStateValue.conversation?.id === conversation.id
+                currentConversationStateValue.conversation?.id === conversation.id ? 1 : 0
               }
             />
           );

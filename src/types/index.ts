@@ -20,7 +20,8 @@ export interface Conversation {
   id?: string;
   creator: ChatUser;
   participant: ChatUser;
-  latestMessage: string;
+  participantIds: string[];
+  latestMessage: null | string;
   hasCreatorSeenLatestMessage: boolean;
   hasParticipantSeenLatestMessage: boolean;
   createdAt: Date;

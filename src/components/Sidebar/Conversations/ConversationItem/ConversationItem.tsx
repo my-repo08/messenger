@@ -7,7 +7,7 @@ import { ChatUser, Conversation } from "../../../../types";
 import { formatAvatar, formatTimestamp, setBadge } from "../../../../utils";
 import MoreMenu from "../MoreMenu/MoreMenu";
 
-const ConversationEl = styled(motion.li)<{ active: boolean }>`
+const ConversationEl = styled(motion.li)<{ active: number }>`
   position: relative;
   display: flex;
   align-items: center;
@@ -53,13 +53,13 @@ const LatestMessage = styled.span`
   white-space: nowrap;
   opacity: 0.8;
   @media (max-width: 768px) {
-    max-width: 65vw;
+    max-width: 60vw;
   }
 `;
 
-const MoreButton = styled.button<{ active: boolean }>`
+const MoreButton = styled.button<{ active: number }>`
   position: absolute;
-  top: 1px;
+  top: 3px;
   right: 1px;
   display: flex;
   justify-content: center;
@@ -94,7 +94,7 @@ interface ConversationItemProps {
   currentUserId: string | undefined;
   user: ChatUser;
   setIsSibebarOpen: (isOpen: boolean) => void;
-  isActive: boolean;
+  isActive: number;
 }
 
 const ConversationItem: React.FC<ConversationItemProps> = ({

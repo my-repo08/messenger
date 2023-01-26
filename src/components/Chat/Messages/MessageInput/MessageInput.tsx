@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -14,11 +14,15 @@ const Form = styled.form`
   display: flex;
   padding: 10px;
   padding-bottom: 15px;
+  @media (max-width: 768px) {
+    padding-bottom: 10px;
+  }
 `;
 
 const Input = styled.input`
   width: 100%;
   padding: 8px;
+  padding-right: 40px;
   background: transparent;
   font-size: 14px;
   color: ${(props) => props.theme.textColor};
@@ -79,6 +83,12 @@ const MessageInput: React.FC = () => {
       setConversationsStateValue
     );
   };
+
+  useEffect(() => {
+    if (window.matchMedia("(min-width: 768px)").matches) {
+      messageTextRef.current?.focus();
+    }
+  }, [currentConversationStateValue.conversation?.id]);
 
   return (
     <Form onSubmit={onSendMessage}>
