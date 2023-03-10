@@ -44,37 +44,48 @@
 ### Авторизация
 
 При запуске приложения будет доступна страница авторизации. На ней можно авторизоваться через учетную запись Google, либо через ранее созданный аккаунт. Если аккаунта еще нет, можно зарегистрироваться используя любой e-mail к которому у вас есть доступ. Пароль можно указать любой. После успешной регистрации, необходимо будет указать имя пользователя по которому вас смогут находить другие пользователи:
-  
-![1](https://user-images.githubusercontent.com/122017847/223850399-dcf15525-7da1-44e1-9bbc-763a638b342c.gif)
+
+<kbd>
+    <img src="https://user-images.githubusercontent.com/122017847/223850399-dcf15525-7da1-44e1-9bbc-763a638b342c.gif" />
+</kbd>
   
 #
   
 Также, при указании имени пользователя опционально можно установить аватар:
-  
-![2](https://user-images.githubusercontent.com/122017847/223848857-fad5a048-e87a-4b3f-8247-ff40f2e634c2.gif)
+
+<kbd>
+    <img src="https://user-images.githubusercontent.com/122017847/223848857-fad5a048-e87a-4b3f-8247-ff40f2e634c2.gif" />
+</kbd>
 
 #
   
 ### Восстановление пароля
   
 В случае, если вы забыли пароль, на странице авторизации необходимо выбрать «Забыли пароль», далее указать почту, на которую зарегистрирован аккаунт. На эту почту придет письмо с ссылкой для изменения пароля:
-  
-![3](https://user-images.githubusercontent.com/122017847/223848843-3d458c13-4d96-4ed2-abb8-bbf3c6546f0c.gif)
+
+<kbd>
+    <img src="https://user-images.githubusercontent.com/122017847/223848843-3d458c13-4d96-4ed2-abb8-bbf3c6546f0c.gif" />
+</kbd>
   
 #
   
 ### Главная страница
   
 На основной странице будет доступен сам чат. Через поле поиска можно найти определенного пользователя и создать с ним беседу, после чего можно начинать с ним переписку. Список текущих бесед сортируется по времени создания беседы, либо если имеется, то по времени получения последнего сообщения:
-  
-![4](https://user-images.githubusercontent.com/122017847/223848875-0f20dd5d-fd3d-41aa-b880-754a2164abfc.gif)
+
+<kbd>
+    <img src="https://user-images.githubusercontent.com/122017847/223848875-0f20dd5d-fd3d-41aa-b880-754a2164abfc.gif" />
+</kbd>
   
 #
   
 ### Диалоговое окно
   
 При клике на беседу будет открыто окно диалога, где можно отправлять сообщения. После прочтения сообщения вашим собеседником будет отображен текст «Прочитано»:
-![5](https://user-images.githubusercontent.com/122017847/223848887-5106bfb1-193c-46e3-b152-b40e794c6f7a.gif)
+
+<kbd>
+    <img src="https://user-images.githubusercontent.com/122017847/223848887-5106bfb1-193c-46e3-b152-b40e794c6f7a.gif" />
+</kbd>
   
 #
   
@@ -82,7 +93,9 @@
   
 При получении нового сообщения на странице появится уведомление, кликнув по которому можно перейти в чат с отправителем:
 
-![6](https://user-images.githubusercontent.com/122017847/223848905-b251ef5f-428e-4d85-b9bd-a73a636ffa42.gif)
+<kbd>
+    <img src="https://user-images.githubusercontent.com/122017847/223848905-b251ef5f-428e-4d85-b9bd-a73a636ffa42.gif" />
+</kbd>
   
 #
   
@@ -90,7 +103,9 @@
   
 При наличии непрочитанного сообщения, слева от беседы будет отображен синий индикатор:
 
-![7](https://user-images.githubusercontent.com/122017847/223848957-439caeaf-9e91-4419-9a0b-258aee6a658c.gif)
+<kbd>
+    <img src="https://user-images.githubusercontent.com/122017847/223848957-439caeaf-9e91-4419-9a0b-258aee6a658c.gif" />
+</kbd>
   
 #
   
@@ -98,28 +113,49 @@
   
 В приложении доступны две темы: светлая и темная. При запуске приложения автоматически будет применена тема которая установлена на вашем устройстве:
 
-![8](https://user-images.githubusercontent.com/122017847/223848977-453ca245-9600-4058-b0cd-dccc3ee11050.gif)
+<kbd>
+    <img src="https://user-images.githubusercontent.com/122017847/223848977-453ca245-9600-4058-b0cd-dccc3ee11050.gif" />
+</kbd>
   
 #
   
 ### Удаление беседы
 
 Беседу можно удалить кликнув на иконку с корзиной рядом с полем ввода, после подтверждения удаления текущая беседа и все связанные с ней сообщения будут удалены:
-  
-![9](https://user-images.githubusercontent.com/122017847/223849043-241aadee-f1fc-45f8-a996-f359f6e9a785.gif)
+
+<kbd>
+    <img src="https://user-images.githubusercontent.com/122017847/223849043-241aadee-f1fc-45f8-a996-f359f6e9a785.gif" />
+</kbd>
   
 #
   
 ### Выход
-  
-![10](https://user-images.githubusercontent.com/122017847/223878850-c2b1486b-3cbb-4e7f-a98b-ebdd3d57ec89.gif)
+
+  <kbd>
+    <img src="https://user-images.githubusercontent.com/122017847/223878850-c2b1486b-3cbb-4e7f-a98b-ebdd3d57ec89.gif" />
+  </kbd>
   
 #
   
 ### Мобильная версия
   
 Приложение адаптировано под комфортное использование на мобильном телефоне:
-  
-![11](https://user-images.githubusercontent.com/122017847/223878018-66e959cb-f483-4118-9fbd-1d13973eee4e.gif)
-![12](https://user-images.githubusercontent.com/122017847/223872708-17493cf5-ed9f-42fb-90c2-c7428f9024be.gif)
-![13](https://user-images.githubusercontent.com/122017847/223878046-d60630b0-f995-4a4f-bb95-9d224ff64fd7.gif)
+
+<div>
+  <kbd>
+    <img width="400" src="https://user-images.githubusercontent.com/122017847/224189105-05e3122f-c4ad-44f1-82e9-04672145f152.gif"/>
+  </kbd>
+  <kbd>
+    <img width="400" src="https://user-images.githubusercontent.com/122017847/224188206-32901d4e-a128-4b56-9d4c-b9a4cdc0f8eb.gif"/>
+  </kbd>
+</div>
+<br />
+<div>
+ <kbd>
+    <img width="400" src="https://user-images.githubusercontent.com/122017847/224189347-a6974291-bb27-4042-9673-b4db1cd5ec07.gif" />
+ </kbd>
+
+  <kbd>
+    <img width="400" src="https://user-images.githubusercontent.com/122017847/224226804-28e1d303-76da-4f47-88c9-35c8f24d5e76.gif" />
+ </kbd>
+</div>
